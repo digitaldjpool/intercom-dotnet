@@ -18,22 +18,16 @@ namespace Intercom.Clients
 
         public Event Create (Event @event)
         {
-            if (@event == null)
-            {
-                throw new ArgumentNullException (nameof(@event));
-            }
-
-            if (string.IsNullOrEmpty(@event.event_name))
-            {
-                throw new ArgumentException ("'event_name' argument is null or empty.");
-            }
-
+            Guard.AgainstNull(nameof(@event), @event);
+            Guard.AgainstNullAndEmpty(nameof(@event.event_name), @event.event_name);
+            
             if (!@event.created_at.HasValue)
             {
-                throw new ArgumentException ("'created_at' argument must have value.");
+                throw new ArgumentException("'created_at' argument must have value.");
             }
 
             ClientResponse<Event> result = Post<Event>(@event);
+            
             return result.Result;
         }
 
@@ -46,15 +40,15 @@ namespace Intercom.Clients
 
             if (!string.IsNullOrEmpty (user.id)) 
             {
-                parameters.Add (Constants.INTERCOM_USER_ID, user.id);
+                parameters.Add(Constants.INTERCOM_USER_ID, user.id);
             } 
             else if (!string.IsNullOrEmpty (user.user_id)) 
             {
-                parameters.Add (Constants.USER_ID, user.user_id);
+                parameters.Add(Constants.USER_ID, user.user_id);
             } 
             else if (!string.IsNullOrEmpty (user.email)) 
             {
-                parameters.Add (Constants.EMAIL, user.email);
+                parameters.Add(Constants.EMAIL, user.email);
             } 
             else 
             {
@@ -67,29 +61,24 @@ namespace Intercom.Clients
 
         public Events List (Dictionary<string, string> parameters)
         {
-            if (parameters == null) 
-            {
-                throw new ArgumentNullException (nameof(parameters));
-            }
+            Guard.AgainstNull(nameof(parameters), parameters);
+            Guard.AgainstEmpty(nameof(parameters), parameters);
 
-            if (!parameters.Any ()) 
+            var missingRequiredParameters = !parameters.ContainsKey(Constants.INTERCOM_USER_ID)
+                                            && !parameters.ContainsKey(Constants.USER_ID)
+                                            && !parameters.ContainsKey(Constants.EMAIL);
+            if (missingRequiredParameters) 
             {
-                throw new ArgumentException ("'parameters' argument should include at least one parameter key, value.");
-            }
-
-            if (!parameters.ContainsKey (Constants.INTERCOM_USER_ID) &&
-                !parameters.ContainsKey (Constants.USER_ID) &&
-                !parameters.ContainsKey (Constants.EMAIL)) {
                 throw new ArgumentException ($"'parameters' argument should include at least {Constants.INTERCOM_USER_ID}, or {Constants.USER_ID}, or {Constants.EMAIL} parameter.");
             }
 
-            if (!parameters.Contains (new KeyValuePair<string, string> (Constants.TYPE, "user"))) 
+            if (!parameters.Contains(new KeyValuePair<string, string>(Constants.TYPE, "user"))) 
             {
-                parameters.Add (Constants.TYPE, "user");
+                parameters.Add(Constants.TYPE, "user");
             }
 
-            ClientResponse<Events> result = null;
-            result = Get<Events> (parameters: parameters);
+            ClientResponse<Events> result = Get<Events>(parameters: parameters);
+            
             return result.Result;
         }
     }
