@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
     public class AdminsClient : Client
     {
-        private const String ADMINS_RESOURCE = "admins";
+        private const string ADMINS_RESOURCE = "admins";
 
         public AdminsClient (RestClientFactory restClientFactory)
             : base (ADMINS_RESOURCE, restClientFactory)
@@ -28,8 +24,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use AdminsClient(RestClientFactory restClientFactory)")]
-        public AdminsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, ADMINS_RESOURCE, authentication)
+        public AdminsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, ADMINS_RESOURCE, authentication)
         {
         }
 
@@ -40,7 +36,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Admins List (Dictionary<String, String> parameters)
+        public Admins List (Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {
@@ -57,9 +53,9 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Admin View (String id)
+        public Admin View (string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException (nameof(id));
             }
@@ -75,7 +71,7 @@ namespace Intercom.Clients
                 throw new ArgumentNullException (nameof(admin));
             }
 
-            if (String.IsNullOrEmpty(admin.id))
+            if (string.IsNullOrEmpty(admin.id))
             {
                 throw new ArgumentException ("you must provide value for 'admin.id'.");
             }

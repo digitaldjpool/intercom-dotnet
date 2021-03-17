@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Intercom.Clients;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
-
 
 namespace Intercom.Converters.ClassConverters
 {
@@ -37,13 +31,13 @@ namespace Intercom.Converters.ClassConverters
                 {
                     int open = 0;
                     int closed = 0;
-                    int.TryParse(r["open"].Value<String>(), out open);
-                    int.TryParse(r["closed"].Value<String>(), out closed);
+                    int.TryParse(r["open"].Value<string>(), out open);
+                    int.TryParse(r["closed"].Value<string>(), out closed);
 
                     admins.Add(new ConversationAdminCount.AdminCount()
                         { 
-                            id = r["id"].Value<String>(),
-                            name = r["name"].Value<String>(),
+                            id = r["id"].Value<string>(),
+                            name = r["name"].Value<string>(),
                             open = open,
                             closed = closed
                         });
@@ -55,7 +49,7 @@ namespace Intercom.Converters.ClassConverters
             {
                 throw new JsonConverterException("Error while serializing ConversationAdminCount endpoint json result.", ex)
                 {
-                    Json = j == null ? String.Empty : j.ToString(),
+                    Json = j == null ? string.Empty : j.ToString(),
                     SerializationType = objectType.FullName
                 };
             }
@@ -65,7 +59,7 @@ namespace Intercom.Converters.ClassConverters
                                        object value,
                                        JsonSerializer serializer)
         {
-            String s = JsonConvert.SerializeObject(value,
+            string s = JsonConvert.SerializeObject(value,
                            Formatting.None,
                            new JsonSerializerSettings
                 {

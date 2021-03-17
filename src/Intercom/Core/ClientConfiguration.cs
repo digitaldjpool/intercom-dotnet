@@ -1,18 +1,8 @@
-﻿using System;
-using Intercom.Core;
-using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-
-namespace Intercom.Core
+﻿namespace Intercom.Core
 {
-	public class ClientConfiguration
-	{
-        public String AppKey { private set; get; }
-        public String AppId { private set; get; }
-
-		public ClientConfiguration ()
-		{
-		}
-	}
+    public class ClientConfiguration
+    {
+        public string AppKey { private set; get; }
+        public string AppId { private set; get; }
+    }
 }

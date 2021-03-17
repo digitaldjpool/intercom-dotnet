@@ -49,7 +49,7 @@ namespace Intercom.Test
         [Test()]
         public void Create_NoUserIdOrEmail_ThrowException()
         {
-            Assert.Throws<ArgumentException>(() => notesClient.Create(new User(), String.Empty));
+            Assert.Throws<ArgumentException>(() => notesClient.Create(new User(), string.Empty));
         }
 
         [Test()]
@@ -57,7 +57,7 @@ namespace Intercom.Test
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                notesClient.Create(new User() { email = "email@example.com" }, String.Empty);
+                notesClient.Create(new User() { email = "email@example.com" }, string.Empty);
             });
         }
 

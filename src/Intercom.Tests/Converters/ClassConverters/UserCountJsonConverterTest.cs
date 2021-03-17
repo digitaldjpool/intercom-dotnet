@@ -28,7 +28,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForUserSegment_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"user\":{\"segment\":[{\"Active\":2},{\"New\":0},{\"P1 Test\":0},{\"Slipping Away\":0}]}}";
+            string input = "{\"type\":\"count\",\"user\":{\"segment\":[{\"Active\":2},{\"New\":0},{\"P1 Test\":0},{\"Slipping Away\":0}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             UserSegmentCount userSegmentCount = 
@@ -42,7 +42,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForUserTag_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"user\":{\"tag\":[{\"automated-tag\":0},{\"has_device_token\":1001},{\"Tag 1\":1},{\"test_user_tagged\":2}]}}";
+            string input = "{\"type\":\"count\",\"user\":{\"tag\":[{\"automated-tag\":0},{\"has_device_token\":1001},{\"Tag 1\":1},{\"test_user_tagged\":2}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             UserTagCount userTagCount = 
@@ -56,7 +56,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"type\":\"count\",\"usted-tag\":0},{\"has_device_token\":1001},{\"Tag 1\":1},{\"test_user_tagged\":2}]}}";
+            string input = "{\"type\":\"count\",\"usted-tag\":0},{\"has_device_token\":1001},{\"Tag 1\":1},{\"test_user_tagged\":2}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

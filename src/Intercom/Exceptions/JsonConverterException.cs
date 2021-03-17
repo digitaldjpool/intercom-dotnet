@@ -4,15 +4,15 @@ namespace Intercom.Exceptions
 {
     public class JsonConverterException : IntercomException
     {
-        public String Json { set; get; }
-        public String SerializationType { set; get; }
+        public string Json { set; get; }
+        public string SerializationType { set; get; }
 
-        public JsonConverterException(String message) 
+        public JsonConverterException(string message) 
             :base(message)
         {
         }
 
-        public JsonConverterException (String message, Exception innerException) 
+        public JsonConverterException (string message, Exception innerException) 
             :base(message, innerException)
         {
         }

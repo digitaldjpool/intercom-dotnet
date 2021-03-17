@@ -16,18 +16,18 @@ namespace Intercom.Data
     {
         public class RichLink: ICloneable
         {
-            public String url { set; get; }
+            public string url { set; get; }
 
-            public String value { set; get; }
+            public string value { set; get; }
 
-            public RichLink(String url, String value)
+            public RichLink(string url, string value)
             {
-                if (String.IsNullOrEmpty(url))
+                if (string.IsNullOrEmpty(url))
                 {
                     throw new ArgumentNullException(nameof(url));
                 }
 
-                if (String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
@@ -46,11 +46,11 @@ namespace Intercom.Data
         {
             public int amount { set; get; }
 
-            public String currency { set; get; }
+            public string currency { set; get; }
 
-            public MonetaryAmount(int amount, String currency)
+            public MonetaryAmount(int amount, string currency)
             {
-                if (String.IsNullOrEmpty(currency))
+                if (string.IsNullOrEmpty(currency))
                 {
                     throw new ArgumentNullException(nameof(currency));
                 }
@@ -65,10 +65,10 @@ namespace Intercom.Data
             }
         }
 
-        private Dictionary<String, Object> data = new Dictionary<String, Object>();
+        private Dictionary<string, object> data = new Dictionary<string, object>();
 
         // TODO: Implement indexer
-        public Object this [String key]
+        public object this [string key]
         {
             get
             {
@@ -81,10 +81,10 @@ namespace Intercom.Data
         {
         }
 
-        public void Add(String key, object value)
+        public void Add(string key, object value)
         {
 			
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -97,7 +97,7 @@ namespace Intercom.Data
             data.Add(key, value);
         }
 
-        public void Add(Dictionary<String, Object> metadata)
+        public void Add(Dictionary<string, object> metadata)
         {
             if (metadata == null)
             {
@@ -115,9 +115,9 @@ namespace Intercom.Data
             }
         }
 
-        public void Add(String key, Metadata.RichLink richLink)
+        public void Add(string key, Metadata.RichLink richLink)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -130,9 +130,9 @@ namespace Intercom.Data
             data.Add(key, richLink);
         }
 
-        public void Add(String key, Metadata.MonetaryAmount monetaryAmount)
+        public void Add(string key, Metadata.MonetaryAmount monetaryAmount)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -145,19 +145,19 @@ namespace Intercom.Data
             data.Add(key, monetaryAmount);
         }
 
-        public Dictionary<String, Object> GetMetadata()
+        public Dictionary<string, object> GetMetadata()
         {
-            Dictionary<String, Object> result = new Dictionary<String, Object>(data.Count, data.Comparer);
+            Dictionary<string, object> result = new Dictionary<string, object>(data.Count, data.Comparer);
 
-            foreach (KeyValuePair<String, Object> entry in data)
+            foreach (KeyValuePair<string, object> entry in data)
                 result.Add(entry.Key, entry.Value is ICloneable ? ((ICloneable)entry.Value).Clone() : entry.Value);
 
             return result;
         }
 
-        public object GetMetadata(String key)
+        public object GetMetadata(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -172,9 +172,9 @@ namespace Intercom.Data
             return result;
         }
 
-        public MonetaryAmount GetMonetaryAmount(String key)
+        public MonetaryAmount GetMonetaryAmount(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
@@ -202,9 +202,9 @@ namespace Intercom.Data
             return result;
         }
 
-        public RichLink GetRichLink(String key)
+        public RichLink GetRichLink(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }

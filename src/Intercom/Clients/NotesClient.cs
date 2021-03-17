@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
     public class NotesClient : Client
     {
-        private const String NOTES_RESOURCE = "notes";
+        private const string NOTES_RESOURCE = "notes";
 
         public NotesClient(RestClientFactory restClientFactory)
             : base(NOTES_RESOURCE, restClientFactory)
@@ -30,8 +24,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use NotesClient(RestClientFactory restClientFactory)")]
-        public NotesClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, NOTES_RESOURCE, authentication)
+        public NotesClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, NOTES_RESOURCE, authentication)
         {
         }
 
@@ -49,16 +43,16 @@ namespace Intercom.Clients
 
             object u = null;
 
-            if (!String.IsNullOrEmpty(note.user.id))
+            if (!string.IsNullOrEmpty(note.user.id))
                 u = new { id = note.user.id };
-            else if (!String.IsNullOrEmpty(note.user.user_id))
+            else if (!string.IsNullOrEmpty(note.user.user_id))
                 u = new { user_id = note.user.user_id };
-            else if (!String.IsNullOrEmpty(note.user.email))
+            else if (!string.IsNullOrEmpty(note.user.email))
                 u = new { email = note.user.email };
             else
                 throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
 
-            if (String.IsNullOrEmpty(note.body))
+            if (string.IsNullOrEmpty(note.body))
             {
                 throw new ArgumentException("'note.body' argument is null or empty.");
             }
@@ -68,7 +62,7 @@ namespace Intercom.Clients
                 throw new ArgumentException("'note.author' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(note.author.id))
+            if (string.IsNullOrEmpty(note.author.id))
             {
                 throw new ArgumentException("'note.author.id' argument is null.");
             }
@@ -81,7 +75,7 @@ namespace Intercom.Clients
                 user = u
             };
 
-            String b = JsonConvert.SerializeObject(body,
+            string b = JsonConvert.SerializeObject(body,
                 Formatting.None, 
                 new JsonSerializerSettings
                 { 
@@ -92,7 +86,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Note Create(User user, String body, String adminId = null)
+        public Note Create(User user, string body, string adminId = null)
         {
             if (user == null)
             {
@@ -101,16 +95,16 @@ namespace Intercom.Clients
 
             object u = null;
 
-            if (!String.IsNullOrEmpty(user.id))
+            if (!string.IsNullOrEmpty(user.id))
                 u = new { id = user.id };
-            else if (!String.IsNullOrEmpty(user.user_id))
+            else if (!string.IsNullOrEmpty(user.user_id))
                 u = new { user_id = user.user_id };
-            else if (!String.IsNullOrEmpty(user.email))
+            else if (!string.IsNullOrEmpty(user.email))
                 u = new { email = user.email };
             else
                 throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
 
-            if (String.IsNullOrEmpty(body))
+            if (string.IsNullOrEmpty(body))
             {
                 throw new ArgumentNullException(nameof(body));
             }
@@ -123,7 +117,7 @@ namespace Intercom.Clients
                 user = u
             };
 
-            String b = JsonConvert.SerializeObject(note,
+            string b = JsonConvert.SerializeObject(note,
                            Formatting.None, 
                            new JsonSerializerSettings
                 { 
@@ -135,9 +129,9 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Note View(String id)
+        public Note View(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -154,20 +148,20 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(user));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Notes> result = null;
 
-            if (!String.IsNullOrEmpty(user.id))
+            if (!string.IsNullOrEmpty(user.id))
             {
                 parameters.Add(Constants.ID, user.id);
                 result = Get<Notes>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(user.user_id))
+            else if (!string.IsNullOrEmpty(user.user_id))
             {
                 parameters.Add(Constants.USER_ID, user.user_id);
                 result = Get<Notes>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(user.email))
+            else if (!string.IsNullOrEmpty(user.email))
             {
                 parameters.Add(Constants.EMAIL, user.email);
                 result = Get<Notes>(parameters: parameters);         

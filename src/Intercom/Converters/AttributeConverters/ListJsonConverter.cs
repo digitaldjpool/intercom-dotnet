@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Intercom.Clients;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace Intercom.Converters.AttributeConverters
 {
@@ -29,7 +25,7 @@ namespace Intercom.Converters.AttributeConverters
             try
             {
                 jobject = JObject.Load(reader);
-                Object result = null;
+                object result = null;
 
                 if (objectType == typeof(List<Company>))
                     result = GetList<Company>(jobject, "companies");
@@ -48,7 +44,7 @@ namespace Intercom.Converters.AttributeConverters
             {
                 throw new JsonConverterException("Error while serializing AppCount endpoint json result.", ex)
                 { 
-                    Json = jobject == null ? String.Empty : jobject.ToString(),
+                    Json = jobject == null ? string.Empty : jobject.ToString(),
                     SerializationType = objectType.FullName
                 };
             }
@@ -58,7 +54,7 @@ namespace Intercom.Converters.AttributeConverters
                                        object value,
                                        JsonSerializer serializer)
         {
-            String s = JsonConvert.SerializeObject(value,
+            string s = JsonConvert.SerializeObject(value,
                            Formatting.None, 
                            new JsonSerializerSettings
                 {
@@ -73,7 +69,7 @@ namespace Intercom.Converters.AttributeConverters
             get { return true; }
         }
 
-        private List<T> GetList<T>(JObject jobject, String key)
+        private List<T> GetList<T>(JObject jobject, string key)
 			where T: class
         {
             var value = jobject.GetValue(key);

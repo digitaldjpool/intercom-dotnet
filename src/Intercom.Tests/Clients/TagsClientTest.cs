@@ -56,17 +56,17 @@ namespace Intercom.Test
         {
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Tag(String.Empty, new List<Company>());
+                    tagsClient.Tag(string.Empty, new List<Company>());
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Tag(String.Empty, new List<User>());
+                    tagsClient.Tag(string.Empty, new List<User>());
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Tag(String.Empty, new List<Contact>());
+                    tagsClient.Tag(string.Empty, new List<Contact>());
                 });
         }
 
@@ -113,17 +113,17 @@ namespace Intercom.Test
         {
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Untag(String.Empty, new List<Company>());
+                    tagsClient.Untag(string.Empty, new List<Company>());
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Untag(String.Empty, new List<User>());
+                    tagsClient.Untag(string.Empty, new List<User>());
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
-                    tagsClient.Untag(String.Empty, new List<Contact>());
+                    tagsClient.Untag(string.Empty, new List<Contact>());
                 });
         }
 

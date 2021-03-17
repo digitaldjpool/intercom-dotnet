@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
     public class UserConversationsClient: Client
     {
-        private const String CONVERSATIONS_RESOURCE = "conversations";
-        private const String MESSAGES_RESOURCE = "messages";
-        private const String REPLY_RESOURCE = "reply";
+        private const string CONVERSATIONS_RESOURCE = "conversations";
+        private const string MESSAGES_RESOURCE = "messages";
+        private const string REPLY_RESOURCE = "reply";
 
         public UserConversationsClient(RestClientFactory restClientFactory)
             : base(CONVERSATIONS_RESOURCE, restClientFactory)
@@ -31,8 +25,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UserConversationsClient(RestClientFactory restClientFactory)")]
-        public UserConversationsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        public UserConversationsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
         {
         }
 
@@ -44,7 +38,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Conversation> result = null;
-            String body = Serialize<UserConversationReply>(reply);
+            string body = Serialize<UserConversationReply>(reply);
             result = Post<Conversation>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
@@ -63,7 +57,7 @@ namespace Intercom.Clients
         {
             ClientResponse<Conversations> result = null;
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.USER);
 
             if (unread != null && unread.HasValue)
@@ -76,17 +70,17 @@ namespace Intercom.Clients
                 parameters.Add(Constants.DISPLAY_AS, Constants.PLAIN_TEXT);
             }
 
-            if (!String.IsNullOrEmpty(user.id))
+            if (!string.IsNullOrEmpty(user.id))
             {
                 parameters.Add(Constants.INTERCOM_USER_ID, user.id);
                 result = Get<Conversations>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(user.user_id))
+            else if (!string.IsNullOrEmpty(user.user_id))
             {
                 parameters.Add(Constants.USER_ID, user.user_id);
                 result = Get<Conversations>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(user.email))
+            else if (!string.IsNullOrEmpty(user.email))
             {
                 parameters.Add(Constants.EMAIL, user.email);
                 result = Get<Conversations>(parameters: parameters);            
@@ -101,15 +95,15 @@ namespace Intercom.Clients
         }
 
         public Conversations List(
-            String intercomUserId = null,
-            String email = null,
-            String userId = null, 
+            string intercomUserId = null,
+            string email = null,
+            string userId = null, 
             bool? unread = null, 
             bool? displayAsPlainText = null)
         {
             ClientResponse<Conversations> result = null;
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.USER);
 
             if (unread != null && unread.HasValue)
@@ -122,17 +116,17 @@ namespace Intercom.Clients
                 parameters.Add(Constants.DISPLAY_AS, Constants.PLAIN_TEXT);
             }
 
-            if (!String.IsNullOrEmpty(intercomUserId))
+            if (!string.IsNullOrEmpty(intercomUserId))
             {
                 parameters.Add(Constants.INTERCOM_USER_ID, intercomUserId);
                 result = Get<Conversations>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(userId))
+            else if (!string.IsNullOrEmpty(userId))
             {
                 parameters.Add(Constants.USER_ID, userId);
                 result = Get<Conversations>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(email))
+            else if (!string.IsNullOrEmpty(email))
             {
                 parameters.Add(Constants.EMAIL, email);
                 result = Get<Conversations>(parameters: parameters);            

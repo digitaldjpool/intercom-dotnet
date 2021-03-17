@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Intercom.Clients;
-using Intercom.Core;
-using Intercom.Data;
-using Intercom.Exceptions;
+﻿using Intercom.Data;
 
 namespace Intercom.Core
 {
@@ -12,9 +7,5 @@ namespace Intercom.Core
 		public virtual string type { get; set; }
 		public virtual Pages pages { get; set; }
 		public virtual int total_count { get; set; }
-
-		public Models ()
-		{
-		}
 	}
 }

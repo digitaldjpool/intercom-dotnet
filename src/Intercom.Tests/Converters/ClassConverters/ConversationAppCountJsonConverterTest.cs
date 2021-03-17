@@ -28,7 +28,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForConversationAppCount_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"conversation\":{\"open\":24,\"closed\":35,\"unassigned\":11,\"assigned\":13}}";
+            string input = "{\"type\":\"count\",\"conversation\":{\"open\":24,\"closed\":35,\"unassigned\":11,\"assigned\":13}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             ConversationAppCount conversationAppCount = 
@@ -44,7 +44,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"type\":\"count\\pen\":24,\"closed\":35,\"unassigned\":11,\"assigned\":13}}";
+            string input = "{\"type\":\"count\\pen\":24,\"closed\":35,\"unassigned\":11,\"assigned\":13}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

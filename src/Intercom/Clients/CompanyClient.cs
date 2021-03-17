@@ -12,7 +12,7 @@ namespace Intercom.Clients
     // TODO: List companies by Tag or Segment
     public class CompanyClient : Client
     {
-        private const String COMPANIES_RESOURCE = "companies";
+        private const string COMPANIES_RESOURCE = "companies";
 
         public CompanyClient(RestClientFactory restClientFactory)
             : base(COMPANIES_RESOURCE, restClientFactory)
@@ -26,8 +26,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CompanyClient(RestClientFactory restClientFactory)")]
-        public CompanyClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
+        public CompanyClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
         {
         }
 
@@ -56,13 +56,13 @@ namespace Intercom.Clients
                 foreach (var attr in company.custom_attributes)
                 {
                     if (attr.Key.Contains(".") || attr.Key.Contains("$"))
-                        throw new ArgumentException(String.Format("Field names must not contain Periods (.) or Dollar ($) characters. key: {0}", attr.Key));
+                        throw new ArgumentException(string.Format("Field names must not contain Periods (.) or Dollar ($) characters. key: {0}", attr.Key));
 
                     if (attr.Key.Length > 190)
-                        throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
+                        throw new ArgumentException(string.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
 
                     if (attr.Value == null)
-                        throw new ArgumentException(String.Format("'value' is null. key: {0}", attr.Key));
+                        throw new ArgumentException(string.Format("'value' is null. key: {0}", attr.Key));
                 }
             }
 
@@ -71,9 +71,9 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Company View(String id)
+        public Company View(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -89,19 +89,19 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(company));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Company> result = null;
 
-            if (!String.IsNullOrEmpty(company.id))
+            if (!string.IsNullOrEmpty(company.id))
             {
                 result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
             }
-            else if (!String.IsNullOrEmpty(company.name))
+            else if (!string.IsNullOrEmpty(company.name))
             {
                 parameters.Add(Constants.NAME, company.name);
                 result = Get<Company>(parameters: parameters);
             }
-            else if (!String.IsNullOrEmpty(company.company_id))
+            else if (!string.IsNullOrEmpty(company.company_id))
             {
                 parameters.Add(Constants.COMPANY_ID, company.company_id);
                 result = Get<Company>(parameters: parameters);
@@ -120,7 +120,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Companies List(Dictionary<String, String> parameters)
+        public Companies List(Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {
@@ -137,12 +137,12 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Companies Scroll(String scrollParam = null)
+        public Companies Scroll(string scrollParam = null)
         {
-            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Companies> result = null;
 
-            if (!String.IsNullOrWhiteSpace(scrollParam))
+            if (!string.IsNullOrWhiteSpace(scrollParam))
             {
                 parameters.Add("scroll_param", scrollParam);
             }
@@ -158,15 +158,15 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(company));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Users> result = null;
 
-            if (!String.IsNullOrEmpty(company.id))
+            if (!string.IsNullOrEmpty(company.id))
             {
-                String resource = company.id + Path.DirectorySeparatorChar + "users";
+                string resource = company.id + Path.DirectorySeparatorChar + "users";
                 result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
             }
-            else if (!String.IsNullOrEmpty(company.company_id))
+            else if (!string.IsNullOrEmpty(company.company_id))
             {
                 parameters.Add(Constants.TYPE, Constants.USER);
                 parameters.Add(Constants.COMPANY_ID, company.company_id);
@@ -180,20 +180,20 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Users ListUsers(String companyId)
+        public Users ListUsers(string companyId)
         {
-            if (String.IsNullOrEmpty(companyId))
+            if (string.IsNullOrEmpty(companyId))
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            String resource = companyId + Path.DirectorySeparatorChar + "users";
+            string resource = companyId + Path.DirectorySeparatorChar + "users";
             ClientResponse<Users> result = null;
             result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
             return result.Result;
         }
 
-        private String Transform(Company company)
+        private string Transform(Company company)
         {
             var body = new
             {

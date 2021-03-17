@@ -29,7 +29,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForConversationAppCount_ReturnsValidCount()
         {
-            String input = "{\"number\":1000,\"string_1\":\"123123\",\"number_2\":1000,\"complex\":{\"amount\":3123123,\"currency\":\"aed\"},\"article_1\":{\"url\":\"https://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
+            string input = "{\"number\":1000,\"string_1\":\"123123\",\"number_2\":1000,\"complex\":{\"amount\":3123123,\"currency\":\"aed\"},\"article_1\":{\"url\":\"https://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             Metadata metadata = metadataJsonConverter.ReadJson(reader, typeof(Metadata), null, null) as Metadata;
@@ -44,7 +44,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidMonetaryAmount_ReturnsZeroAmount()
         {
-            String input = "{\"complex\":{\"amount\":\"wrong_value\",\"currency\":\"aed\"},\"article_1\":{\"url\":\"https://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
+            string input = "{\"complex\":{\"amount\":\"wrong_value\",\"currency\":\"aed\"},\"article_1\":{\"url\":\"https://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
@@ -56,7 +56,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"complex\"\":\"aed\"},\"article_1\":{\"url\tps://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
+            string input = "{\"complex\"\":\"aed\"},\"article_1\":{\"url\tps://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

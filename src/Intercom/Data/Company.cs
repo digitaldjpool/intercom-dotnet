@@ -22,7 +22,7 @@ namespace Intercom.Data
         public int? size { get; set; }
         public string website { get; set; }
         public string industry { get; set; }
-        public Dictionary<String, Object> custom_attributes { get; set; }
+        public Dictionary<string, object> custom_attributes { get; set; }
         [JsonConverter(typeof(ListJsonConverter))]
         public List<Tag> tags { get; set; }
     }

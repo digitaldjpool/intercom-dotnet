@@ -40,7 +40,7 @@ namespace Intercom.Test
         [Test()]
         public void ListByParams_NoIdOrUserIdOrEmail_ThrowException()
         {
-            Assert.Throws<ArgumentException>(() => eventsClient.List(new Dictionary<String,String>()));
+            Assert.Throws<ArgumentException>(() => eventsClient.List(new Dictionary<string,string>()));
         }
     }
 }

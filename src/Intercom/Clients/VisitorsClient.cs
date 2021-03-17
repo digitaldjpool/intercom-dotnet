@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
-using RestSharp.Authenticators;
 using Newtonsoft.Json;
 
 namespace Intercom.Clients
 {
     public class VisitorsClient : Client
     {
-        private const String VISITORS_RESOURCE = "visitors";
-        private const String VISITORS_CONVERT = "convert";
+        private const string VISITORS_RESOURCE = "visitors";
+        private const string VISITORS_CONVERT = "convert";
 
         public VisitorsClient(RestClientFactory restClientFactory)
             : base(VISITORS_RESOURCE, restClientFactory)
@@ -31,12 +26,12 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use VisitorsClient(RestClientFactory restClientFactory)")]
-        public VisitorsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, VISITORS_RESOURCE, authentication)
+        public VisitorsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, VISITORS_RESOURCE, authentication)
         {
         }
 
-        public Visitor View(Dictionary<String, String> parameters)
+        public Visitor View(Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {
@@ -54,9 +49,9 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Visitor View(String id)
+        public Visitor View(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -73,14 +68,14 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Visitor> result = null;
 
-            if (!String.IsNullOrEmpty(visitor.id))
+            if (!string.IsNullOrEmpty(visitor.id))
             {
                 result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
             }
-            else if (!String.IsNullOrEmpty(visitor.user_id))
+            else if (!string.IsNullOrEmpty(visitor.user_id))
             {
                 parameters.Add(Constants.USER_ID, visitor.user_id);
                 result = Get<Visitor>(parameters: parameters);
@@ -100,7 +95,7 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            if (String.IsNullOrEmpty(visitor.id) && String.IsNullOrEmpty(visitor.user_id))
+            if (string.IsNullOrEmpty(visitor.id) && string.IsNullOrEmpty(visitor.user_id))
             {
                 throw new ArgumentException("you need to provide either 'visitor.id', 'visitor.user_id' to update a visitor.");
             }
@@ -117,20 +112,20 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            if (String.IsNullOrEmpty(visitor.id))
+            if (string.IsNullOrEmpty(visitor.id))
             {
                 throw new ArgumentException("'visitor.id' argument is null.");
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             ClientResponse<Visitor> result = null;
             result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
             return result.Result;       
         }
 
-        public Visitor Delete(String id)
+        public Visitor Delete(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -154,22 +149,22 @@ namespace Intercom.Clients
 
             object userBody = null;
 
-            if (!String.IsNullOrEmpty (user.id))
+            if (!string.IsNullOrEmpty (user.id))
                 userBody = new { id = user.id };
-            else if (!String.IsNullOrEmpty (user.user_id))
+            else if (!string.IsNullOrEmpty (user.user_id))
                 userBody = new { user_id = user.user_id };
-            else if (!String.IsNullOrEmpty (user.email))
+            else if (!string.IsNullOrEmpty (user.email))
                 userBody = new { email = user.email };
             else
                 throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', or 'user.email' to convert a visitor.");
 
             object visitorBody = null;
 
-            if (!String.IsNullOrEmpty (visitor.id))
+            if (!string.IsNullOrEmpty (visitor.id))
                 visitorBody = new { id = visitor.id};
-            else if (!String.IsNullOrEmpty (visitor.user_id))
+            else if (!string.IsNullOrEmpty (visitor.user_id))
                 visitorBody = new {user_id = visitor.user_id };
-            else if (!String.IsNullOrEmpty (visitor.email))
+            else if (!string.IsNullOrEmpty (visitor.email))
                 visitorBody = new { email = visitor.email };
             else
                 throw new ArgumentException ("you need to provide either 'visitor.id', 'visitor.user_id', or 'visitor.email' to convert a visitor.");
@@ -180,7 +175,7 @@ namespace Intercom.Clients
                 type = "user"
             };
 
-            String b = JsonConvert.SerializeObject (body,
+            string b = JsonConvert.SerializeObject (body,
                 Formatting.None,
                 new JsonSerializerSettings {
                     NullValueHandling = NullValueHandling.Ignore
@@ -199,11 +194,11 @@ namespace Intercom.Clients
 
             object visitorBody = null;
 
-            if (!String.IsNullOrEmpty (visitor.id))
+            if (!string.IsNullOrEmpty (visitor.id))
                 visitorBody = new { id = visitor.id };
-            else if (!String.IsNullOrEmpty (visitor.user_id))
+            else if (!string.IsNullOrEmpty (visitor.user_id))
                 visitorBody = new { user_id = visitor.user_id };
-            else if (!String.IsNullOrEmpty (visitor.email))
+            else if (!string.IsNullOrEmpty (visitor.email))
                 visitorBody = new { email = visitor.email };
             else
                 throw new ArgumentException ("you need to provide either 'visitor.id', 'visitor.user_id', or 'visitor.email' to convert a visitor.");
@@ -213,7 +208,7 @@ namespace Intercom.Clients
                 type = "lead"
             };
 
-            String b = JsonConvert.SerializeObject (body,
+            string b = JsonConvert.SerializeObject (body,
                 Formatting.None,
                 new JsonSerializerSettings {
                     NullValueHandling = NullValueHandling.Ignore

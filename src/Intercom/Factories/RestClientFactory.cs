@@ -1,4 +1,3 @@
-using System;
 using RestSharp;
 using RestSharp.Authenticators;
 using Intercom.Core;
@@ -8,7 +7,7 @@ namespace Intercom.Factories
     public class RestClientFactory
     {
 
-        private const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
+        private const string INTERCOM_API_BASE_URL = "https://api.intercom.io/";
         private readonly Authentication _authentication;
         private readonly string _url;
         private IRestClient _restClient;
@@ -37,6 +36,7 @@ namespace Intercom.Factories
                     {
                         return _restClient;
                     }
+                    
                     ConstructClient();
                     return _restClient; 
                 }
@@ -45,12 +45,12 @@ namespace Intercom.Factories
 
         private void ConstructClient()
         {
-            RestClient client = new RestClient(_url);
-
-            if (!String.IsNullOrEmpty (_authentication.AppId) && !String.IsNullOrEmpty (_authentication.AppKey))
-                client.Authenticator = new HttpBasicAuthenticator (_authentication.AppId, _authentication.AppKey);
-            else
-                client.Authenticator = new HttpBasicAuthenticator (_authentication.PersonalAccessToken, String.Empty);
+            var client = new RestClient(_url)
+            {
+                Authenticator = !string.IsNullOrEmpty(_authentication.AppId) && !string.IsNullOrEmpty(_authentication.AppKey)
+                    ? new HttpBasicAuthenticator(_authentication.AppId, _authentication.AppKey)
+                    : new HttpBasicAuthenticator(_authentication.PersonalAccessToken, string.Empty)
+            };
 
             _restClient = client;
         }

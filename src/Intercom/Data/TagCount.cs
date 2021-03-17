@@ -13,7 +13,7 @@ namespace Intercom.Data
 {
     public class TagCount
     {
-        public Dictionary<String, int> tags = new Dictionary<string, int>();
+        public Dictionary<string, int> tags = new Dictionary<string, int>();
 
         public TagCount()
         {

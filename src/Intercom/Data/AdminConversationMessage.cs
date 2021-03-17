@@ -11,12 +11,12 @@ namespace Intercom.Data
 	{
 
         public class From { 
-			public String id { set; get; }
-			public String type { private set; get; }
+			public string id { set; get; }
+			public string type { private set; get; }
 
-			public From(String id)
+			public From(string id)
 			{
-				if(String.IsNullOrEmpty(id))
+				if(string.IsNullOrEmpty(id))
 					throw new ArgumentNullException (nameof(id));
 				
 				this.id = id;
@@ -25,17 +25,17 @@ namespace Intercom.Data
 		}
 
 		public class To { 
-			public String id { set; get; }
-			public String email { set; get; }
-			public String user_id { set; get; }
-			public String type { set; get; }
+			public string id { set; get; }
+			public string email { set; get; }
+			public string user_id { set; get; }
+			public string type { set; get; }
 
-            public To(String type = Message.MessageFromOrToType.USER,  String id = null, String email = null, String user_id = null)
+            public To(string type = Message.MessageFromOrToType.USER,  string id = null, string email = null, string user_id = null)
 			{
-				if(String.IsNullOrEmpty(type))
+				if(string.IsNullOrEmpty(type))
 					throw new ArgumentNullException (nameof(type));
 
-				if(String.IsNullOrEmpty(id) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(user_id))
+				if(string.IsNullOrEmpty(id) && string.IsNullOrEmpty(email) && string.IsNullOrEmpty(user_id))
 					throw new ArgumentException ("you need to provide either 'id', 'user_id', 'email' to view a user.");
 
                 if(type != Message.MessageFromOrToType.USER && type != Message.MessageFromOrToType.CONTACT)
@@ -57,10 +57,10 @@ namespace Intercom.Data
         public AdminConversationMessage (
             AdminConversationMessage.From from, 
             AdminConversationMessage.To to,
-            String message_type = Message.MessageType.EMAIL,
-            String template = Message.MessageTemplate.PLAIN,
-			String subject = "", 
-			String body = "")
+            string message_type = Message.MessageType.EMAIL,
+            string template = Message.MessageTemplate.PLAIN,
+			string subject = "", 
+			string body = "")
 		{
 			this.to = to;
 			this.from = from;

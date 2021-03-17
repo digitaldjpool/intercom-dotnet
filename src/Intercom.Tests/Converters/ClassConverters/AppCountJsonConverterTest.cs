@@ -28,7 +28,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForConversationAppCount_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count.hash\",\"company\":{\"count\":6},\"user\":{\"count\":2025082},\"lead\":{\"count\":1},\"tag\":{\"count\":17},\"segment\":{\"count\":7}}";
+            string input = "{\"type\":\"count.hash\",\"company\":{\"count\":6},\"user\":{\"count\":2025082},\"lead\":{\"count\":1},\"tag\":{\"count\":17},\"segment\":{\"count\":7}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             AppCount appCount = appCountJsonConverter.ReadJson(reader, typeof(int), null, null) as AppCount;
@@ -40,7 +40,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"type\t\":2025082},\"lead\":{\"count\":{\"count\":17},\"segment\":{\"count\":7}}";
+            string input = "{\"type\t\":2025082},\"lead\":{\"count\":{\"count\":17},\"segment\":{\"count\":7}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

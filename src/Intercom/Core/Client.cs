@@ -1,68 +1,56 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Intercom.Clients;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Intercom.Factories;
-using Newtonsoft;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Core
 {
     public class Client
     {
-        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
-        protected const String CONTENT_TYPE_HEADER = "Content-Type";
-        protected const String CONTENT_TYPE_VALUE = "application/json";
-        protected const String ACCEPT_HEADER = "Accept";
-        protected const String ACCEPT_VALUE = "application/json";
-        protected const String ACCEPT_CHARSET_HEADER = "Accept-Charset";
-        protected const String ACCEPT_CHARSET_VALUE = "UTF-8";
-        protected const String USER_AGENT_HEADER = "User-Agent";
-        protected const String USER_AGENT_VALUE = "intercom-dotnet/2.0.0";
+        protected const string INTERCOM_API_BASE_URL = "https://api.intercom.io/";
+        protected const string CONTENT_TYPE_HEADER = "Content-Type";
+        protected const string CONTENT_TYPE_VALUE = "application/json";
+        protected const string ACCEPT_HEADER = "Accept";
+        protected const string ACCEPT_VALUE = "application/json";
+        protected const string ACCEPT_CHARSET_HEADER = "Accept-Charset";
+        protected const string ACCEPT_CHARSET_VALUE = "UTF-8";
+        protected const string USER_AGENT_HEADER = "User-Agent";
+        protected const string USER_AGENT_VALUE = "intercom-dotnet/2.0.0";
 
-        protected readonly String RESRC;
+        protected readonly string RESRC;
         protected readonly RestClientFactory _restClientFactory;
 
-        public Client(String resource, RestClientFactory restClientFactory)
+        public Client(string resource, RestClientFactory restClientFactory)
         {
-            if (restClientFactory == null)
-                throw new ArgumentNullException(nameof(restClientFactory));
-
-            if (String.IsNullOrEmpty(resource))
-                throw new ArgumentNullException(nameof(resource));
-
-            RESRC = resource;
-            _restClientFactory = restClientFactory;
+            RESRC = resource ?? throw new ArgumentNullException(nameof(resource));;
+            _restClientFactory = restClientFactory ?? throw new ArgumentNullException(nameof(restClientFactory));
         }
 
-        public Client(String intercomApiUrl, String resource, Authentication authentication)
+        public Client(string intercomApiUrl, string resource, Authentication authentication)
         {
             if (authentication == null)
+            {
                 throw new ArgumentNullException(nameof(authentication));
+            }
 
-            if (String.IsNullOrEmpty(resource))
-                throw new ArgumentNullException(nameof(resource));
-
-            if (String.IsNullOrEmpty(intercomApiUrl))
+            if (string.IsNullOrEmpty(intercomApiUrl))
+            {
                 throw new ArgumentNullException(nameof(intercomApiUrl));
+            }
 
-            RESRC = resource;
+            RESRC = resource ?? throw new ArgumentNullException(nameof(resource));;
             _restClientFactory = new RestClientFactory(authentication, intercomApiUrl);
         }
 
         protected virtual ClientResponse<T> Get<T>(
-            Dictionary<String, String> headers = null,
-            Dictionary<String, String> parameters = null,
-            String resource = null)
-			where T : class
+            Dictionary<string, string> headers = null,
+            Dictionary<string, string> parameters = null,
+            string resource = null)
+            where T : class
         {
             ClientResponse<T> clientResponse = null;
 
@@ -84,21 +72,19 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "GET", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException("An exception occurred " + $"while calling the endpoint. Method: GET, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", ex); 
             }
 
             return clientResponse;
         }
 
-        protected virtual ClientResponse<T> Post<T>(String body, 
-                                                    Dictionary<String, String> headers = null, 
-                                                    Dictionary<String, String> parameters = null,
-                                                    String resource = null)
-			where T : class
+        protected virtual ClientResponse<T> Post<T>(string body, 
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null,
+            string resource = null)
+            where T : class
         {
-            if (String.IsNullOrEmpty(body))
+            if (string.IsNullOrEmpty(body))
             {
                 throw new ArgumentNullException(nameof(body));
             }
@@ -123,19 +109,17 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
+                throw new IntercomException("An exception occurred " + $"while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body: {body}", ex); 
             }
 
             return clientResponse;
         }
 
         protected virtual ClientResponse<T> Post<T>(T body, 
-                                                    Dictionary<String, String> headers = null, 
-                                                    Dictionary<String, String> parameters = null,
-                                                    String resource = null)
-			where T : class
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null,
+            string resource = null)
+            where T : class
         {
             if (body == null)
             {
@@ -147,7 +131,7 @@ namespace Intercom.Core
             IRestClient client = null;
             try
             {
-                String requestBody = Serialize<T>(body);
+                string requestBody = Serialize<T>(body);
                 client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: requestBody, resource: resource);
                 IRestResponse response = client.Execute(request);
@@ -163,21 +147,19 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body-Type: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, typeof(T)), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body-Type: {typeof(T)}", ex); 
             }
 
             return clientResponse;
         }
 
-        protected virtual ClientResponse<T> Put<T>(String body, 
-                                                   Dictionary<String, String> headers = null, 
-                                                   Dictionary<String, String> parameters = null,
-                                                   String resource = null)
+        protected virtual ClientResponse<T> Put<T>(string body, 
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null,
+            string resource = null)
             where T : class
         {
-            if (String.IsNullOrEmpty(body))
+            if (string.IsNullOrEmpty(body))
             {
                 throw new ArgumentNullException(nameof(body));
             }
@@ -202,18 +184,16 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body: {body}", ex); 
             }
 
             return clientResponse;
         }
 
         protected virtual ClientResponse<T> Put<T>(T body, 
-                                                   Dictionary<String, String> headers = null, 
-                                                   Dictionary<String, String> parameters = null,
-                                                   String resource = null)
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null,
+            string resource = null)
             where T : class
         {
             if (body == null)
@@ -226,7 +206,7 @@ namespace Intercom.Core
             IRestClient client = null;
             try
             {
-                String requestBody = Serialize<T>(body);
+                string requestBody = Serialize<T>(body);
                 client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: requestBody, resource: resource);
                 IRestResponse response = client.Execute(request);
@@ -242,19 +222,17 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", ex); 
             }
 
             return clientResponse;
         }
 
         protected virtual ClientResponse<T>  Delete<T>(
-            Dictionary<String, String> headers = null, 
-            Dictionary<String, String> parameters = null,
-            String resource = null)
-			where T : class
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null,
+            string resource = null)
+            where T : class
         {
             ClientResponse<T> clientResponse = null;
 
@@ -276,21 +254,19 @@ namespace Intercom.Core
             }
             catch (Exception ex)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", ex); 
             }
         
             return clientResponse;
         }
 
         protected virtual IRestRequest BuildRequest(Method httpMethod = Method.GET,
-                                                    Dictionary<String, String> headers = null, 
-                                                    Dictionary<String, String> parameters = null, 
-                                                    String body = null,
-                                                    String resource = null)
+            Dictionary<string, string> headers = null, 
+            Dictionary<string, string> parameters = null, 
+            string body = null,
+            string resource = null)
         {
-            String final = String.IsNullOrEmpty(resource) ? RESRC : resource;
+            string final = string.IsNullOrEmpty(resource) ? RESRC : resource;
 
             IRestRequest request = new RestRequest(final, httpMethod);
             request.AddHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
@@ -304,7 +280,7 @@ namespace Intercom.Core
             if (parameters != null && parameters.Any())
                 AddParameters(request, parameters);
 
-            if (!String.IsNullOrEmpty(body))
+            if (!string.IsNullOrEmpty(body))
                 AddBody(request, body);
 
             return request;
@@ -316,7 +292,7 @@ namespace Intercom.Core
         }
 
         protected virtual void AddHeaders(IRestRequest request, 
-                                          Dictionary<String, String> headers)
+            Dictionary<string, string> headers)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -329,7 +305,7 @@ namespace Intercom.Core
         }
 
         protected virtual void AddParameters(IRestRequest request, 
-                                             Dictionary<String, String> parameters)
+            Dictionary<string, string> parameters)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -341,17 +317,17 @@ namespace Intercom.Core
                 request.AddParameter(parameter.Key, parameter.Value, ParameterType.QueryString);
         }
 
-        protected virtual void AddBody(IRestRequest request, String body)
+        protected virtual void AddBody(IRestRequest request, string body)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            if (!String.IsNullOrEmpty(body))
+            if (!string.IsNullOrEmpty(body))
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
         }
 
         protected virtual ClientResponse<T> HandleResponse<T>(IRestResponse response)
-			where T: class
+            where T: class
         {
             ClientResponse<T> clientResponse = null;
             int statusCode = (int)response.StatusCode;
@@ -366,13 +342,13 @@ namespace Intercom.Core
             return clientResponse;
         }
 
-        protected T Deserialize<T>(String data)
+        protected T Deserialize<T>(string data)
             where T : class
         {
             return JsonConvert.DeserializeObject(data, typeof(T)) as T;
         }
 
-        protected String Serialize<T>(T data)
+        protected string Serialize<T>(T data)
             where T : class
         {
             return JsonConvert.SerializeObject(data,
@@ -385,9 +361,9 @@ namespace Intercom.Core
         }
 
         protected ClientResponse<T> HandleErrorResponse<T>(IRestResponse response)
-			where T : class
+            where T : class
         {
-            if (String.IsNullOrEmpty(response.Content))
+            if (string.IsNullOrEmpty(response.Content))
             {
                 return new ClientResponse<T>(response: response);
             }
@@ -399,13 +375,13 @@ namespace Intercom.Core
         }
 
         protected ClientResponse<T> HandleNormalResponse<T>(IRestResponse response)
-			where T : class
+            where T : class
         {
             return new ClientResponse<T>(response: response, result: Deserialize<T>(response.Content));
         }
 
         protected void AssertIfAnyErrors<T>(ClientResponse<T> response)
-			where T : class
+            where T : class
         {
             if (response.Errors != null && response.Errors.errors != null && response.Errors.errors.Any())
             {

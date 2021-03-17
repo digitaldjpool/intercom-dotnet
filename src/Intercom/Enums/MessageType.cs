@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace Library
+﻿namespace Library
 {
-	public enum MessageType
-	{
-		
-	}
+    public enum MessageType
+    {
+    }
 }

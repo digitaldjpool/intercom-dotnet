@@ -1,36 +1,37 @@
 ﻿using System;
-using Intercom.Core;
-using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-using RestSharp;
 
 namespace Intercom.Core
 {
-	public class Authentication
-	{
-        public String AppId { private set; get;}
-		public String AppKey{ private set; get;}
-        public String PersonalAccessToken { private set; get; }
+    public class Authentication
+    {
+        public string AppId { get;} 
+        public string AppKey{ get;}
+        public string PersonalAccessToken { get; }
 
-        public Authentication (String personalAccessToken)
+        public Authentication (string personalAccessToken)
         {
-            if (String.IsNullOrEmpty (personalAccessToken))
+            if (string.IsNullOrEmpty(personalAccessToken))
+            {
                 throw new ArgumentException ("'PersonalAccessToken' argument is not found.");
+            }
 
-            this.PersonalAccessToken = personalAccessToken;
+            PersonalAccessToken = personalAccessToken;
         }
 
-        public Authentication (String appId, String appKey)
+        public Authentication (string appId, string appKey)
         {
-            if (String.IsNullOrEmpty (appId))
+            if (string.IsNullOrEmpty(appId))
+            {
                 throw new ArgumentException ("'appId' argument is not found.");
+            }
 
-            if (String.IsNullOrEmpty (appKey))
+            if (string.IsNullOrEmpty(appKey))
+            {
                 throw new ArgumentException ("'appKey' argument is not found.");
+            }
 
-            this.AppId = appId;
-            this.AppKey = appKey;
+            AppId = appId;
+            AppKey = appKey;
         }
-	}
+    }
 }

@@ -1,45 +1,35 @@
 ﻿using System;
-using Intercom.Core;
 using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-using RestSharp;
 
 namespace Intercom.Exceptions
 {
     public class ApiException : IntercomException
     {
-        public int StatusCode { set; get; }
-        public String StatusDescription { set; get; }
-        public String ApiResponseBody { set; get; }
-        public Errors ApiErrors { set; get; }
+        public int StatusCode { get; }
+        public string StatusDescription { get; }
+        public string ApiResponseBody { get; }
+        public Errors ApiErrors { get; }
 
-        public ApiException ()
-            :base()
-        {
-        }
-
-        public ApiException (String message, Exception innerException) 
+        public ApiException (string message, Exception innerException) 
             :base(message, innerException)
         {
         }
 
-        public ApiException (int statusCode, String statusDescription, Errors apiErrors, String apiResponseBody)
-            :base()
+        public ApiException (int statusCode, string statusDescription, Errors apiErrors, string apiResponseBody)
         {
-            this.StatusCode = statusCode;
-            this.StatusDescription = statusDescription;
-            this.ApiErrors = apiErrors;
-            this.ApiResponseBody = apiResponseBody;
+            StatusCode = statusCode;
+            StatusDescription = statusDescription;
+            ApiErrors = apiErrors;
+            ApiResponseBody = apiResponseBody;
         }
 
-        public ApiException (String message, Exception innerException, int statusCode, String statusDescription, Errors apiErrors, String apiResponseBody)
+        public ApiException (string message, Exception innerException, int statusCode, string statusDescription, Errors apiErrors, string apiResponseBody)
             :base(message, innerException)
         {
-            this.StatusCode = statusCode;
-            this.StatusDescription = statusDescription;
-            this.ApiErrors = apiErrors;
-            this.ApiResponseBody = apiResponseBody;
+            StatusCode = statusCode;
+            StatusDescription = statusDescription;
+            ApiErrors = apiErrors;
+            ApiResponseBody = apiResponseBody;
         }
 
     }

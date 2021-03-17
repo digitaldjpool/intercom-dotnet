@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -22,7 +18,7 @@ namespace Intercom.Clients
             Company
         }
 
-        private const String TAGS_RESOURCE = "tags";
+        private const string TAGS_RESOURCE = "tags";
 
         public TagsClient(RestClientFactory restClientFactory)
             : base(TAGS_RESOURCE, restClientFactory)
@@ -36,8 +32,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use TagsClient(RestClientFactory restClientFactory)")]
-        public TagsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
+        public TagsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
         {
         }
 
@@ -65,7 +61,7 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(tag));
             }
 
-            if (String.IsNullOrEmpty(tag.name) || String.IsNullOrEmpty(tag.id))
+            if (string.IsNullOrEmpty(tag.name) || string.IsNullOrEmpty(tag.id))
             {
                 throw new ArgumentException("you need to provide 'tag.id', 'tag.name' to update a tag.");
             }
@@ -75,9 +71,9 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Tag View(String id)
+        public Tag View(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -96,7 +92,7 @@ namespace Intercom.Clients
 
             ClientResponse<Tag> result = null;
 
-            if (!String.IsNullOrEmpty(tag.id))
+            if (!string.IsNullOrEmpty(tag.id))
             {
                 result = Get<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + tag.id);
             }
@@ -115,7 +111,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Tags List(Dictionary<String, String> parameters)
+        public Tags List(Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {
@@ -139,7 +135,7 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(tag));
             }
 
-            if (String.IsNullOrEmpty(tag.id))
+            if (string.IsNullOrEmpty(tag.id))
             {
                 throw new ArgumentException("you need to provide 'tag.id' to delete a tag.");
             }
@@ -147,9 +143,9 @@ namespace Intercom.Clients
             Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + tag.id);
         }
 
-        public void Delete(String id)
+        public void Delete(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -157,9 +153,9 @@ namespace Intercom.Clients
             Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
         }
 
-        public Tag Tag(String name, List<Company> companies)
+        public Tag Tag(string name, List<Company> companies)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -175,15 +171,15 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, false, companies: companies);
+            string body = CreateBody(name, false, companies: companies);
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Tag(String name, List<User> users)
+        public Tag Tag(string name, List<User> users)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -199,15 +195,15 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, false, users: users);
+            string body = CreateBody(name, false, users: users);
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Tag(String name, List<Contact> contacts)
+        public Tag Tag(string name, List<Contact> contacts)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -223,13 +219,13 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, false, contacts.ToList<User>());
+            string body = CreateBody(name, false, contacts.ToList<User>());
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Tag(String name, List<String> ids, EntityType tagType)
+        public Tag Tag(string name, List<string> ids, EntityType tagType)
         {
             switch (tagType)
             {
@@ -244,9 +240,9 @@ namespace Intercom.Clients
             }
         }
 
-        public Tag Untag(String name, List<User> users)
+        public Tag Untag(string name, List<User> users)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -262,15 +258,15 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, true, users: users);
+            string body = CreateBody(name, true, users: users);
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Untag(String name, List<Company> companies)
+        public Tag Untag(string name, List<Company> companies)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -286,16 +282,16 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, true, companies: companies);
+            string body = CreateBody(name, true, companies: companies);
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Untag(String name, List<Contact> contacts)
+        public Tag Untag(string name, List<Contact> contacts)
         {
 
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -312,13 +308,13 @@ namespace Intercom.Clients
 
 
             ClientResponse<Tag> result = null;
-            String body = CreateBody(name, true, contacts.ToList<User>());
+            string body = CreateBody(name, true, contacts.ToList<User>());
             result = Post<Tag>(body);
 
             return result.Result;
         }
 
-        public Tag Untag(String name, List<String> ids, EntityType tagType)
+        public Tag Untag(string name, List<string> ids, EntityType tagType)
         {
             switch (tagType)
             {
@@ -333,37 +329,37 @@ namespace Intercom.Clients
             }
         }
 
-        private String CreateBody(String name, bool untag, List<User> users)
+        private string CreateBody(string name, bool untag, List<User> users)
         {
             foreach (var u in users)
-                if (String.IsNullOrEmpty(u.id) && String.IsNullOrEmpty(u.user_id) && string.IsNullOrEmpty(u.email))
+                if (string.IsNullOrEmpty(u.id) && string.IsNullOrEmpty(u.user_id) && string.IsNullOrEmpty(u.email))
                     throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to tag a user.");
 
             object tags = BuildTag(name, untag, users);
             return SerializeTag(tags);
         }
 
-        private String CreateBody(String name, bool untag, List<Company> companies)
+        private string CreateBody(string name, bool untag, List<Company> companies)
         {
             foreach (var c in companies)
-                if (String.IsNullOrEmpty(c.id) && String.IsNullOrEmpty(c.company_id))
+                if (string.IsNullOrEmpty(c.id) && string.IsNullOrEmpty(c.company_id))
                     throw new ArgumentException("you need to provide either 'company.id' or 'company.company_id' to tag a company.");
 
             object tags = BuildTag(name, untag, companies);
             return SerializeTag(tags);
         }
 
-        private object BuildTag(String name, bool untag, List<User> users)
+        private object BuildTag(string name, bool untag, List<User> users)
         {
             return new { name = name, users = users.Select(u => new { id = u.id, user_id = u.user_id, email = u.email, untag = untag }) };
         }
 
-        private object BuildTag(String name, bool untag, List<Company> companies)
+        private object BuildTag(string name, bool untag, List<Company> companies)
         {
             return new { name = name, companies = companies.Select(c => new { id = c.id, company_id = c.company_id, untag = untag }) };
         }
 
-        private String SerializeTag(object tag)
+        private string SerializeTag(object tag)
         {
             return JsonConvert.SerializeObject(tag,
                 Formatting.None,

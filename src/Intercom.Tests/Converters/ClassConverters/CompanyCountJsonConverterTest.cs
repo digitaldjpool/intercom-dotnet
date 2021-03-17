@@ -28,7 +28,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForCompanySegmentCount_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"company\":{\"segment\":[{\"New\":0},{\"Active\":1},{\"Slipping Away\":0}]}}";
+            string input = "{\"type\":\"count\",\"company\":{\"segment\":[{\"New\":0},{\"Active\":1},{\"Slipping Away\":0}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             CompanySegmentCount companySegmentCount = 
@@ -42,7 +42,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForCompanyUserCount_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"company\":{\"user\":[{\"Test company\":2,\"remote_company_id\":\"2\"},{\"Test company 3\":1,\"remote_company_id\":\"3\"},{\"Serenity\":1,\"remote_company_id\":\"366\"},{\"Test company 4\":1,\"remote_company_id\":\"4\"}]}}";
+            string input = "{\"type\":\"count\",\"company\":{\"user\":[{\"Test company\":2,\"remote_company_id\":\"2\"},{\"Test company 3\":1,\"remote_company_id\":\"3\"},{\"Serenity\":1,\"remote_company_id\":\"366\"},{\"Test company 4\":1,\"remote_company_id\":\"4\"}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             CompanyUserCount companyUserCount = 
@@ -56,7 +56,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForCompanyTagCount_ReturnsValidCompanyTag()
         {
-            String input = "{\"type\":\"count\",\"company\":{\"tag\":[{\"automated-tag\":0},{\"cool-users-only\":6},{\"CSV Import - 2016-04-26 12:22:47 UTC\":0}]}}\n";
+            string input = "{\"type\":\"count\",\"company\":{\"tag\":[{\"automated-tag\":0},{\"cool-users-only\":6},{\"CSV Import - 2016-04-26 12:22:47 UTC\":0}]}}\n";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
@@ -71,7 +71,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"type\":\"count\",\"company\"tag\":[{\"auto\"cool-users-only\":6},{\"CSV Import - 2016-04-26 12:22:47 UTC\":0}]}}\n";
+            string input = "{\"type\":\"count\",\"company\"tag\":[{\"auto\"cool-users-only\":6},{\"CSV Import - 2016-04-26 12:22:47 UTC\":0}]}}\n";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

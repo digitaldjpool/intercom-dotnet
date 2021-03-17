@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -16,14 +11,14 @@ namespace Intercom.Clients
     {
         public static class MessageType
         {
-            public const String ASSIGNMENT = "assignment";
-            public const String COMMENT = "comment";
-            public const String CLOSE = "close";
-            public const String OPEN = "open";
-            public const String NOTE = "note";
+            public const string ASSIGNMENT = "assignment";
+            public const string COMMENT = "comment";
+            public const string CLOSE = "close";
+            public const string OPEN = "open";
+            public const string NOTE = "note";
         }
 
-        private const String CONVERSATIONS_RESOURCE = "conversations";
+        private const string CONVERSATIONS_RESOURCE = "conversations";
 
         public ConversationsClient( RestClientFactory restClientFactory)
             : base(CONVERSATIONS_RESOURCE, restClientFactory)
@@ -37,19 +32,19 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use ConversationsClient(RestClientFactory restClientFactory)")]
-        public ConversationsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        public ConversationsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
         {
         }
 
-        public Conversation View(String id, bool? displayAsPlainText = null)
+        public Conversation View(string id, bool? displayAsPlainText = null)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
 
             if (displayAsPlainText != null && displayAsPlainText.HasValue)
             {
@@ -68,7 +63,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Conversations ListAll(Dictionary<String, String> parameters)
+        public Conversations ListAll(Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {

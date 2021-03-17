@@ -28,7 +28,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForConversationAppCount_ReturnsValidCount()
         {
-            String input = "{\"type\":\"count\",\"conversation\":{\"admin\":[{\"name\":\"AAA\",\"id\":\"29\",\"open\":3,\"closed\":11},{\"name\":\"BBB\",\"id\":\"10\",\"open\":2,\"closed\":0},{\"name\":\"CCC\",\"id\":\"15\",\"open\":2,\"closed\":2}]}}";
+            string input = "{\"type\":\"count\",\"conversation\":{\"admin\":[{\"name\":\"AAA\",\"id\":\"29\",\"open\":3,\"closed\":11},{\"name\":\"BBB\",\"id\":\"10\",\"open\":2,\"closed\":0},{\"name\":\"CCC\",\"id\":\"15\",\"open\":2,\"closed\":2}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             ConversationAdminCount conversationAppCount = 
@@ -42,7 +42,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"type\":\"count\",\"in\":[{\"name\":\"AAA\",\"id\":\"29\",\"open\":3,\"closed\":11},{\"name\":\"BBB\",\"id\":\"10\",\"open\":2,\"closed\":0},{\"name\":\"CCC\",\"id\":\"15\",\"open\":2,\"closed\":2}]}}";
+            string input = "{\"type\":\"count\",\"in\":[{\"name\":\"AAA\",\"id\":\"29\",\"open\":3,\"closed\":11},{\"name\":\"BBB\",\"id\":\"10\",\"open\":2,\"closed\":0},{\"name\":\"CCC\",\"id\":\"15\",\"open\":2,\"closed\":2}]}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

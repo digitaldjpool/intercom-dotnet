@@ -7,21 +7,20 @@ using RestSharp;
 
 namespace Intercom.Exceptions
 {
-	public class IntercomException : Exception
-	{
+    public class IntercomException : Exception
+    {
         public IntercomException ()
-            :base()
         {
         }
 
-        public IntercomException (String message) 
+        public IntercomException (string message) 
             :base(message)
         {
         }
 
-        public IntercomException (String message, Exception innerException) 
+        public IntercomException (string message, Exception innerException) 
             :base(message, innerException)
         {
         }
-	}
+    }
 }

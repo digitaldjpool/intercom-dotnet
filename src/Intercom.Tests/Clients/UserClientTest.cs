@@ -4,12 +4,8 @@ using System.Net;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Clients;
-using Intercom.Exceptions;
 using Intercom.Factories;
 using RestSharp;
-using RestSharp.Authenticators;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using Moq;
 
 namespace Intercom.Test

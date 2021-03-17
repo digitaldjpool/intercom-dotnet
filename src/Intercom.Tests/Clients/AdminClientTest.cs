@@ -29,7 +29,7 @@ namespace Intercom.Test
         [Test()]
         public void View_WithEmptyString_ThrowException()
         {
-            Assert.Throws<ArgumentNullException>(() => adminsClient.View(String.Empty));
+            Assert.Throws<ArgumentNullException>(() => adminsClient.View(string.Empty));
         }
 
         [Test()]

@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Intercom.Clients;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace Intercom.Converters.ClassConverters
 {
@@ -48,7 +42,7 @@ namespace Intercom.Converters.ClassConverters
             {
                 throw new JsonConverterException("Error while serializing AppCount endpoint json result.", ex)
                 { 
-                    Json = j == null ? String.Empty : j.ToString(),
+                    Json = j == null ? string.Empty : j.ToString(),
                     SerializationType = objectType.FullName
                 };
             }
@@ -58,7 +52,7 @@ namespace Intercom.Converters.ClassConverters
                                        object value,
                                        JsonSerializer serializer)
         {
-            String s = JsonConvert.SerializeObject(value,
+            string s = JsonConvert.SerializeObject(value,
                            Formatting.None,
                            new JsonSerializerSettings
                 {

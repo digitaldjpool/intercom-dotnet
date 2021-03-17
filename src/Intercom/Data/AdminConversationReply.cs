@@ -21,24 +21,24 @@ namespace Intercom.Data
             }
         }
 
-        public String admin_id { set; get; }
+        public string admin_id { set; get; }
 
-        public String assignee_id { set; get; }
+        public string assignee_id { set; get; }
 
-        public AdminConversationReply(String conversationId,
-                                      String adminId, 
-                                      String messageType = Reply.ReplyMessageType.COMMENT,
-                                      String body = "",
-                                      List<String> attachementUrls = null)
+        public AdminConversationReply(string conversationId,
+                                      string adminId, 
+                                      string messageType = Reply.ReplyMessageType.COMMENT,
+                                      string body = "",
+                                      List<string> attachementUrls = null)
             : base(conversationId, messageType, body, attachementUrls)
         {
 
-            if (String.IsNullOrEmpty(conversationId))
+            if (string.IsNullOrEmpty(conversationId))
                 throw new ArgumentNullException(nameof(conversationId));
 
             if ((messageType == Reply.ReplyMessageType.COMMENT ||
                 messageType == Reply.ReplyMessageType.NOTE) &&
-                String.IsNullOrEmpty(body))
+                string.IsNullOrEmpty(body))
             {
                 throw new ArgumentException("'body' argument shouldnt be empty when the message type is 'comment' or 'note'.");
             }

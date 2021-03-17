@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
     public class CountsClient: Client
     {
-        private const String COUNTS_RESOURCE = "counts";
+        private const string COUNTS_RESOURCE = "counts";
 
         public CountsClient (RestClientFactory restClientFactory)
             : base (COUNTS_RESOURCE, restClientFactory)
@@ -28,8 +22,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CountsClient(RestClientFactory restClientFactory)")]
-        public CountsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COUNTS_RESOURCE, authentication)
+        public CountsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COUNTS_RESOURCE, authentication)
         {
         }
 
@@ -42,7 +36,7 @@ namespace Intercom.Clients
 
         public ConversationAppCount GetConversationAppCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.CONVERSATION);
 
             ClientResponse<ConversationAppCount> result = null;
@@ -52,7 +46,7 @@ namespace Intercom.Clients
 
         public ConversationAdminCount GetConversationAdminCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.CONVERSATION);
             parameters.Add(Constants.COUNT, Constants.ADMIN);
 
@@ -63,7 +57,7 @@ namespace Intercom.Clients
 
         public UserTagCount GetUserTagCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.USER);
             parameters.Add(Constants.COUNT, Constants.TAG);
 
@@ -74,7 +68,7 @@ namespace Intercom.Clients
 
         public UserSegmentCount GetUserSegmentCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.USER);
             parameters.Add(Constants.COUNT, Constants.SEGMENT);
 
@@ -85,7 +79,7 @@ namespace Intercom.Clients
 
         public CompanySegmentCount GetCompanySegmentCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.COMPANY);
             parameters.Add(Constants.COUNT, Constants.SEGMENT);
 
@@ -96,7 +90,7 @@ namespace Intercom.Clients
 
         public CompanyTagCount GetCompanyTagCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.COMPANY);
             parameters.Add(Constants.COUNT, Constants.TAG);
 
@@ -107,7 +101,7 @@ namespace Intercom.Clients
 
         public CompanyUserCount GetCompanyUserCount()
         {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add(Constants.TYPE, Constants.COMPANY);
             parameters.Add(Constants.COUNT, Constants.USER);
 

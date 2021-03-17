@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Intercom.Factories;
-using RestSharp;
 
 namespace Intercom.Clients
 {
     public class SegmentsClient: Client
     {
-        private const String SEGMENTS_RESOURCE = "segments";
+        private const string SEGMENTS_RESOURCE = "segments";
 
         public SegmentsClient(RestClientFactory restClientFactory)
             : base(SEGMENTS_RESOURCE, restClientFactory)
@@ -27,8 +24,8 @@ namespace Intercom.Clients
         }
 
         [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use SegmentsClient(RestClientFactory restClientFactory)")]
-        public SegmentsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, SEGMENTS_RESOURCE, authentication)
+        public SegmentsClient(string intercomApiUrl, Authentication authentication)
+            : base(string.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, SEGMENTS_RESOURCE, authentication)
         {
         }
 
@@ -38,7 +35,7 @@ namespace Intercom.Clients
 
             if (company)
             {
-                Dictionary<String, String> parameters = new Dictionary<string, string>();
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
                 parameters.Add(Constants.TYPE, Constants.COMPANY);
                 result = Get<Segments>(parameters: parameters);
             }
@@ -50,7 +47,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Segments List(Dictionary<String, String> parameters)
+        public Segments List(Dictionary<string, string> parameters)
         {
             if (parameters == null)
             {
@@ -67,14 +64,14 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Segment View(String id, bool? includeCount = null)
+        public Segment View(string id, bool? includeCount = null)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             if (includeCount != null && includeCount.HasValue)
             {
                 parameters.Add("include_count", includeCount.ToString());
@@ -92,12 +89,12 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(segment));
             }
 
-            if (String.IsNullOrEmpty(segment.id))
+            if (string.IsNullOrEmpty(segment.id))
             {
                 throw new ArgumentException("you must provide value for 'segment.id'.");
             }
 
-            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             if (includeCount != null && includeCount.HasValue)
             {
                 parameters.Add("include_count", includeCount.ToString());

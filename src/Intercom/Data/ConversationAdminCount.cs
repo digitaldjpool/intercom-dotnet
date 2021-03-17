@@ -20,7 +20,7 @@ namespace Intercom.Data
         {
             public string id { set; get; }
 
-            public String name { set; get; }
+            public string name { set; get; }
 
             public int open { set; get; }
 

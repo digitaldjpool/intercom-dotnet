@@ -15,8 +15,8 @@ namespace Intercom.Data
     {
         public class UserCountEntry {
             public int count { set; get; }
-            public String name { set; get; }
-            public String remote_company_id { set; get; }
+            public string name { set; get; }
+            public string remote_company_id { set; get; }
         }
 
         public List<UserCountEntry> counts = new List<UserCountEntry>();

@@ -17,7 +17,7 @@ namespace Intercom.Data
             }
         }
 
-        public override String message_type
+        public override string message_type
         { 
             get
             { 
@@ -25,26 +25,26 @@ namespace Intercom.Data
             }
         }
 
-        public String email { set; get; }
+        public string email { set; get; }
 
-        public String user_id { set; get; }
+        public string user_id { set; get; }
 
-        public String intercom_user_id { set; get; }
+        public string intercom_user_id { set; get; }
 
         public UserConversationReply(
-            String conversationId,
-            String body,
-            String intercomUserId = null, 
-            String email = null, 
-            String userId = null,
-            List<String> attachementUrls = null)
+            string conversationId,
+            string body,
+            string intercomUserId = null, 
+            string email = null, 
+            string userId = null,
+            List<string> attachementUrls = null)
             : base(conversationId, Reply.ReplyMessageType.COMMENT, body, attachementUrls)
         {
 
-            if (String.IsNullOrEmpty(conversationId))
+            if (string.IsNullOrEmpty(conversationId))
                 throw new ArgumentNullException(nameof(conversationId));
             
-            if (String.IsNullOrEmpty(intercomUserId) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(intercomUserId) && string.IsNullOrEmpty(email) && string.IsNullOrEmpty(userId))
                 throw new ArgumentException("you need to provide either 'intercomUserId', 'userId', 'email' to view a user.");
 
             this.email = email;

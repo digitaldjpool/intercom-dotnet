@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Converters.AttributeConverters
 {
@@ -40,7 +35,7 @@ namespace Intercom.Converters.AttributeConverters
 
                         if (complex["url"] != null && complex["value"] != null)
                         {
-                            result.Add(j.Key, new Metadata.RichLink(complex["url"].Value<String>(), complex["value"].Value<String>()));
+                            result.Add(j.Key, new Metadata.RichLink(complex["url"].Value<string>(), complex["value"].Value<string>()));
                         }
                         else if (complex["amount"] != null && complex["currency"] != null)
                         {
@@ -52,7 +47,7 @@ namespace Intercom.Converters.AttributeConverters
                     }
                     else
                     {
-                        result.Add(j.Key, j.Value.Value<String>());
+                        result.Add(j.Key, j.Value.Value<string>());
                     }
                 }
 
@@ -63,7 +58,7 @@ namespace Intercom.Converters.AttributeConverters
             {
                 throw new JsonConverterException("Error while serializing AppCount endpoint json result.", ex)
                 { 
-                    Json = jobject == null ? String.Empty : jobject.ToString(),
+                    Json = jobject == null ? string.Empty : jobject.ToString(),
                     SerializationType = objectType.FullName
                 };
             }
@@ -74,9 +69,9 @@ namespace Intercom.Converters.AttributeConverters
                                        JsonSerializer serializer)
         {
             Metadata metadata = value as Metadata;
-            Dictionary<String, object> metadataDictionary = metadata.GetMetadata();
+            Dictionary<string, object> metadataDictionary = metadata.GetMetadata();
 
-            String s = JsonConvert.SerializeObject(metadataDictionary,
+            string s = JsonConvert.SerializeObject(metadataDictionary,
                            Formatting.None, 
                            new JsonSerializerSettings
                 {

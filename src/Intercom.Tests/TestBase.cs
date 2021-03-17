@@ -12,8 +12,8 @@ namespace Intercom.Test
 {
     public class TestBase
     {
-        protected String AppId = "DEFAULT";
-        protected String AppKey = "DEFAULT";
+        protected string AppId = "DEFAULT";
+        protected string AppKey = "DEFAULT";
 
         public TestBase()
         {

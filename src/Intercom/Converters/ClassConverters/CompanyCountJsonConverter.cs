@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace Intercom.Converters.ClassConverters
 {
@@ -32,12 +28,12 @@ namespace Intercom.Converters.ClassConverters
 
                 if (objectType == typeof(CompanyTagCount))
                 {
-                    Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["tag"] as JArray);
+                    Dictionary<string, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["tag"] as JArray);
                     return new CompanyTagCount() { tags = count };
                 }
                 else if (objectType == typeof(CompanySegmentCount))
                 {
-                    Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["segment"] as JArray);
+                    Dictionary<string, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["segment"] as JArray);
                     return new CompanySegmentCount() { segments = count };
                 }
                 else
@@ -50,7 +46,7 @@ namespace Intercom.Converters.ClassConverters
             {
                 throw new JsonConverterException("Error while serializing CompanyCount endpoint json result.", ex)
                 { 
-                    Json = j == null ? String.Empty : j.ToString(),
+                    Json = j == null ? string.Empty : j.ToString(),
                     SerializationType = objectType.FullName
                 };
             }
@@ -60,7 +56,7 @@ namespace Intercom.Converters.ClassConverters
                                        object value,
                                        JsonSerializer serializer)
         {
-            String s = JsonConvert.SerializeObject(value,
+            string s = JsonConvert.SerializeObject(value,
                            Formatting.None,
                            new JsonSerializerSettings
                 {
@@ -70,9 +66,9 @@ namespace Intercom.Converters.ClassConverters
             writer.WriteRawValue(s);
         }
 
-        private Dictionary<String, int> GetCompanyTagOrSegmentCount(JObject j, JArray result)
+        private Dictionary<string, int> GetCompanyTagOrSegmentCount(JObject j, JArray result)
         {
-            Dictionary<String, int> count = new Dictionary<String, int>();
+            Dictionary<string, int> count = new Dictionary<string, int>();
 
             foreach (var r in result)
             {
@@ -98,10 +94,10 @@ namespace Intercom.Converters.ClassConverters
                 if (r != null)
                 {
                     int value = 0;
-                    String name = String.Empty;
-                    String remoteCompanyId = String.Empty;
+                    string name = string.Empty;
+                    string remoteCompanyId = string.Empty;
           
-                    remoteCompanyId = r[Constants.REMOTE_COMPANY_ID].Value<String>();
+                    remoteCompanyId = r[Constants.REMOTE_COMPANY_ID].Value<string>();
 
                     JProperty prop = r.First as JProperty;
                     name = prop.Name;

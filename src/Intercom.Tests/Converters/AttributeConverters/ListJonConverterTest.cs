@@ -29,7 +29,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_ForCompanyList_ReturnsValidCount()
         {
-            String input = "{\"companies\":[{\"type\":\"company\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
+            string input = "{\"companies\":[{\"type\":\"company\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             List<Company> companies = listJsonConverter.ReadJson(reader, typeof(List<Company>), null, null) as List<Company>;
@@ -41,7 +41,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidSerializationType_ThrowsException()
         {
-            String input = "{\"companies\":[{\"type\":\"company\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
+            string input = "{\"companies\":[{\"type\":\"company\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
             Assert.Throws<JsonConverterException>(() => listJsonConverter.ReadJson(reader, typeof(List<Segment>), null, null));
@@ -50,7 +50,7 @@ namespace Intercom.Test
         [Test()]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "{\"compani\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
+            string input = "{\"compani\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

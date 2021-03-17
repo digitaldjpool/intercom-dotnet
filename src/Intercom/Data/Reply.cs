@@ -15,29 +15,29 @@ namespace Intercom.Data
     {
         public static class ReplyMessageType
         {
-            public const String ASSIGNMENT = "assignment";
-            public const String COMMENT = "comment";
-            public const String CLOSE = "close";
-            public const String OPEN = "open";
-            public const String NOTE = "note";
+            public const string ASSIGNMENT = "assignment";
+            public const string COMMENT = "comment";
+            public const string CLOSE = "close";
+            public const string OPEN = "open";
+            public const string NOTE = "note";
         }
 
         public static class ReplySenderType
         {
-            public const String USER = "user";
-            public const String ADMIN = "admin";
+            public const string USER = "user";
+            public const string ADMIN = "admin";
         }
 
-        public virtual String conversation_id { set; get; }
-        public virtual String message_type { set; get; }
-        public virtual String body { set; get; }
-        public virtual List<String> attachment_urls { get; set; }
+        public virtual string conversation_id { set; get; }
+        public virtual string message_type { set; get; }
+        public virtual string body { set; get; }
+        public virtual List<string> attachment_urls { get; set; }
 
         public Reply(
-            String conversation_id,
-            String messageType = Reply.ReplyMessageType.COMMENT,
-            String body = "",
-            List<String> attachementUrls = null)
+            string conversation_id,
+            string messageType = Reply.ReplyMessageType.COMMENT,
+            string body = "",
+            List<string> attachementUrls = null)
         {
             if (attachementUrls != null && attachementUrls.Count > 5)
             {

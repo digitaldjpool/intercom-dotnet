@@ -28,19 +28,19 @@ namespace Intercom.Test
             Assert.Throws<ArgumentNullException>(() =>
                 {
                     object obj = null;
-                    metadata.Add(String.Empty, obj);
+                    metadata.Add(string.Empty, obj);
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
                     Metadata.RichLink richLink = null;
-                    metadata.Add(String.Empty, richLink);
+                    metadata.Add(string.Empty, richLink);
                 });
 
             Assert.Throws<ArgumentNullException>(() =>
                 {
                     Metadata.MonetaryAmount monetaryAmount = null;
-                    metadata.Add(String.Empty, monetaryAmount);
+                    metadata.Add(string.Empty, monetaryAmount);
                 });
         }
 

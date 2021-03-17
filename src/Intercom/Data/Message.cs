@@ -11,21 +11,21 @@ namespace Intercom.Data
 	{
 		public static class MessageType
 		{
-			public const String IN_APP = "inapp";
-			public const String EMAIL = "email";
+			public const string IN_APP = "inapp";
+			public const string EMAIL = "email";
 		}
 
 		public static class MessageTemplate
 		{
-			public const String PLAIN = "plain";
-			public const String PERSONAL = "personal";
+			public const string PLAIN = "plain";
+			public const string PERSONAL = "personal";
 		}
 
 		public static class MessageFromOrToType
 		{
-			public const String USER = "user";
-			public const String ADMIN = "admin";
-			public const String CONTACT = "contact";
+			public const string USER = "user";
+			public const string ADMIN = "admin";
+			public const string CONTACT = "contact";
 		}
 
 		public virtual string body { get; set; }

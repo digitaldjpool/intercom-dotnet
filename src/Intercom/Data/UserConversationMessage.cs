@@ -15,21 +15,21 @@ namespace Intercom.Data
 
 		public class From : Model
 		{
-			public String email { set; get; }
-			public String user_id { set; get; }
+			public string email { set; get; }
+			public string user_id { set; get; }
 
-            public From(String type = Message.MessageFromOrToType.USER, String id = null, String email = null, String user_id = null, User user = null)
+            public From(string type = Message.MessageFromOrToType.USER, string id = null, string email = null, string user_id = null, User user = null)
             {
                 //Validate type of message
-                if (String.IsNullOrEmpty(type))
+                if (string.IsNullOrEmpty(type))
                     throw new ArgumentNullException(nameof(type));
 
                 //Validate required fields related to User
-                if (String.IsNullOrEmpty(id) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(user_id))
+                if (string.IsNullOrEmpty(id) && string.IsNullOrEmpty(email) && string.IsNullOrEmpty(user_id))
                     throw new ArgumentException("you need to provide either 'id', 'user_id', 'email' to view a user.");
 
                 //Validate User required fields
-                if (user != null && String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.email) && String.IsNullOrEmpty(user.user_id))
+                if (user != null && string.IsNullOrEmpty(user.id) && string.IsNullOrEmpty(user.email) && string.IsNullOrEmpty(user.user_id))
                     throw new ArgumentException("you need to provide either 'id', 'user_id', 'email' to view a user.");
 
                 //Validate required types
@@ -55,7 +55,7 @@ namespace Intercom.Data
 
 		public From from { set; get; }
 
-        public UserConversationMessage (From from, String body)
+        public UserConversationMessage (From from, string body)
 		{
 			this.from = from;
 			this.body = body;

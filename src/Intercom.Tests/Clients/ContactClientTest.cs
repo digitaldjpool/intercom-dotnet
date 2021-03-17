@@ -41,7 +41,7 @@ namespace Intercom.Test
         [Test()]
         public void ListByEmail_NoEmail_ThrowException()
         {
-            Assert.Throws<ArgumentNullException>(() => contactsClient.List(String.Empty));
+            Assert.Throws<ArgumentNullException>(() => contactsClient.List(string.Empty));
         }
 
         [Test()]
